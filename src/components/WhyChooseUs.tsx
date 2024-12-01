@@ -1,47 +1,73 @@
-
 "use client";
-import React from "react";
-import { StickyScroll } from "./ui/sticky-scroll-reveal";
+import { motion } from "framer-motion";
+import { useInView } from "framer-motion";
+import { useRef } from "react";
 
-const musicSchoolContent = [
-    {
-      title: 'Discover Your Sound with Us: A Personal Journey in Music Mastery',
-      description:
-        'Embark on a musical journey that’s uniquely yours. Our personalized instruction adapts to your individual needs, setting the stage for unparalleled growth and creativity. At our music school, your aspirations meet our dedicated support, creating a harmonious path to mastery.',
-    },
-    {
-      title: 'Discover Your Sound with Us: A Personal Journey in Music Mastery',
-      description:
-        'Embark on a musical journey that’s uniquely yours. Our personalized instruction adapts to your individual needs, setting the stage for unparalleled growth and creativity. At our music school, your aspirations meet our dedicated support, creating a harmonious path to mastery.',
-    },
-    {
-      title: 'Discover Your Sound with Us: A Personal Journey in Music Mastery',
-      description:
-        'Embark on a musical journey that’s uniquely yours. Our personalized instruction adapts to your individual needs, setting the stage for unparalleled growth and creativity. At our music school, your aspirations meet our dedicated support, creating a harmonious path to mastery.',
-    },
-    {
-      title: 'Live Feedback & Engagement',
-      description:
-        'Immerse yourself in an interactive learning experience where feedback is immediate, just like real-time changes in a collaborative project. This approach enhances your understanding and mastery of music concepts and performance techniques.',
-    },
-    {
-      title: 'Cutting-Edge Curriculum',
-      description:
-        'Our curriculum is continuously updated to include the latest music education trends and technologies, ensuring you’re always learning with the most current and effective methods. Say goodbye to outdated materials and welcome an education that evolves with the industry.',
-    },
-    {
-      title: 'Limitless Learning Opportunities',
-      description:
-        'With our expansive resource library and dynamic course offerings, you’ll never find yourself without something new to explore. Our platform provides continuous opportunities for growth, ensuring your musical skills are always advancing.',
-    },
-  ];
+const features = [
+  {
+    title: "Expert-Led Masterclasses",
+    description: "Learn directly from Grammy-winning artists and industry veterans through exclusive masterclasses and workshops.",
+    delay: 0.2,
+  },
+  {
+    title: "Interactive Learning",
+    description: "Practice with real-time feedback and engage with our innovative learning tools designed for maximum retention.",
+    delay: 0.4,
+  },
+  {
+    title: "Personalized Path",
+    description: "Follow a customized curriculum that adapts to your skill level, goals, and preferred learning style.",
+    delay: 0.6,
+  },
+  {
+    title: "Community Support",
+    description: "Join a vibrant community of musicians, collaborate on projects, and grow together through peer feedback.",
+    delay: 0.8,
+  }
+];
+
+function FeatureCard({ title, description, delay }: { title: string; description: string; delay: number }) {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true });
+
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 20 }}
+      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+      transition={{ duration: 0.8, delay }}
+      className="bg-neutral-900/50 backdrop-blur-sm p-6 rounded-lg border border-neutral-800"
+    >
+      <h3 className="text-xl font-semibold text-gradient mb-3">{title}</h3>
+      <p className="text-neutral-400">{description}</p>
+    </motion.div>
+  );
+}
 
 function WhyChooseUs() {
   return (
-    <div>
-        <StickyScroll content={musicSchoolContent} />
-    </div>
-  )
+    <section className="py-20 bg-dark-gradient">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="text-center mb-12"
+        >
+          <h2 className="text-4xl font-bold text-gradient mb-4">Why Choose Us</h2>
+          <p className="text-neutral-400 max-w-2xl mx-auto">
+            Experience the difference with our innovative approach to music education
+          </p>
+        </motion.div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {features.map((feature) => (
+            <FeatureCard key={feature.title} {...feature} />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
 }
 
-export default WhyChooseUs
+export default WhyChooseUs;
