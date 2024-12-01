@@ -60,7 +60,7 @@ function HeroSection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.7 }}
         >
-          <Link href="/courses">
+          <Link href="/get-started" key="get-started">
             <Button
               borderRadius="1.75rem"
               className="bg-white dark:bg-black text-black dark:text-white border-neutral-200 dark:border-slate-800 group relative overflow-hidden"
@@ -69,7 +69,7 @@ function HeroSection() {
               <div className="absolute inset-0 bg-gradient-to-r from-violet-600 to-indigo-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </Button>
           </Link>
-          <Link href="/contact">
+          <Link href="/programs" key="programs">
             <Button
               borderRadius="1.75rem"
               className="bg-transparent text-white border-white border-2 hover:bg-white/10 transition-colors duration-300"
